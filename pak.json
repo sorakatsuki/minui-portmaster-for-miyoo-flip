@@ -1,0 +1,8 @@
+{
+    "label": "PORTS",
+    "launch": "launch.sh",
+    "description": "Runs PortMaster for the specified port.",
+    "platforms": [
+        "tg5040"
+    ]
+}
