@@ -6,7 +6,7 @@ A MinUI and NextUI Emu Pak for PortMaster which includes everything needed and r
 
 MinUI PortMaster is an Emu Pak for [MinUI](https://github.com/shauninman/MinUI) and [NextUI](https://github.com/LoveRetro/NextUI), wrapping up [PortMaster](https://portmaster.games/), which organizes and simplifies the installation process for hundreds of PC ports. MinUI PortMaster is a standalone Emu Pak and does not require any additional software to run, for example, [TRIMUI_EX](https://github.com/kloptops/TRIMUI_EX). Everything is included in the `PORTS.pak` file and only a few steps are needed to install.
 
-> **Note:** MinUI PortMaster has been deigned to run on TrimUI devices only.
+> **Note:** MinUI PortMaster has been designed to run on TrimUI devices only.
 
 ## Features
 
