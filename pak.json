@@ -12,5 +12,8 @@
     "platforms": [
         "tg5040"
     ],
-    "launch": "launch.sh"
+    "launch": "launch.sh",
+    "update_ignore": [
+        "PortMaster"
+    ]
 }
