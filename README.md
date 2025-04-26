@@ -11,7 +11,7 @@ MinUI PortMaster is an Emu Pak for [MinUI](https://github.com/shauninman/MinUI) 
 ## Features
 
 - Browse and install a wide selection of community ports and homebrew.
-- Distributed as a single Pak directory, no additional setup required.
+- Distributed as a single Pak folder, no additional setup required.
 - Follows MinUI/NextUI SD card folder structure.
 - View cover artwork in NextUI for installed ports.
 - Supports deep sleep and shutdown on compatible devices (coming soon).
@@ -26,7 +26,7 @@ PortMaster is designed and tested for the following platforms:
 
 1. Mount your MinUI SD card to your computer.
 2. Download the latest release from GitHub. It will be named `PORTS.pak.zip`.
-3. Copy the zip file to the correct platform folder in the "/Emus" directory on the SD card. Please ensure the new zip file name is `PORTS.pak.zip`.
+3. Copy the zip file to the correct platform folder in the "/Emus" folder on the SD card. Please ensure the new zip file name is `PORTS.pak.zip`.
 4. Extract the zip in place, then delete the zip file.
 5. Confirm that there is a `/Emus/<PLATFORM>/PORTS.pak/launch.sh` file on your SD card.
 6. Create a folder at `/Roms/Ports (PORTS)`. This is where all the ports data will be stored.
@@ -41,9 +41,11 @@ Note: The `<PLATFORM>` folder name is based on the name of your device. For exam
 - Browse available ports and install new ones.
 - Installed ports will appear under the Ports entry in MinUI/NextUI.
 
+> **Note:** Not all ports are ready to run immediately after installation, and some may require additional steps. This usually involves copying files from a purchased copy of the game. These will need to be copied to the corresponding port folder in `/Roms/Ports (PORTS)/.ports` on the SD card. Please refer to the port's documentation at the [PortMaster](https://portmaster.games/games.html) website for specific instructions.
+
 ## Known Issues
 
-- When you launch PortMaster or a port, a `/mnt/SDCARD/Data/ports` directory is created. It is usually deleted when PortMaster closes, but sometimes it may remain. This does not cause problems, but you can safely delete the folder manually if PortMaster is not running and the `/mnt/SDCARD/Data/ports` folder is empty.
+- When you launch PortMaster or a port, a `/mnt/SDCARD/Data/ports` folder is created. It is usually deleted when PortMaster closes, but sometimes it may remain. This does not cause problems, but you can safely delete the folder manually if PortMaster is not running and the `/mnt/SDCARD/Data/ports` folder is empty.
 - There is currently no way to manually install ports without Wi-Fi. The PortMaster GUI must be used to all install ports.
 - Some ports may not display cover art because the original port did not provide it. In a future update, screenshots will be used as a fallback for ports missing cover images.
 
