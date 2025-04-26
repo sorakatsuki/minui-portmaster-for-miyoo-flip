@@ -2,6 +2,7 @@
     "label": "PORTS",
     "launch": "launch.sh",
     "description": "Runs PortMaster for the specified port.",
+    "pak_type": "emu",
     "platforms": [
         "tg5040"
     ]
