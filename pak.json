@@ -1,6 +1,6 @@
 {
     "name": "PortMaster",
-    "version": "v0.0.0-prerelease",
+    "version": "0.0.0",
     "type": "EMU",
     "description": "Runs PortMaster for the specified port.",
     "author": "ben16w",
