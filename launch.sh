@@ -56,6 +56,28 @@ cleanup() {
     fi
 }
 
+create_busybox_wrappers() {
+    bin_dir="$PAK_DIR/bin"
+    if [ ! -x "$bin_dir/busybox" ]; then
+        echo "Error: $bin_dir/busybox not found or not executable"
+        return 1
+    fi
+
+    for cmd in $("$bin_dir/busybox" --list); do
+        if [ "$cmd" = "sh" ]; then
+            continue
+        fi
+
+        if [ ! -e "$bin_dir/$cmd" ] || grep -q 'exec .*/busybox .*\$@' "$bin_dir/$cmd"; then
+            cat > "$bin_dir/$cmd" <<EOF
+#!/bin/sh
+exec $PAK_DIR/bin/busybox $cmd "\$@"
+EOF
+            chmod +x "$bin_dir/$cmd"
+        fi
+    done
+}
+
 copy_artwork() {
     for dir in "$PORTS_DIR"/*/; do
         [ -d "$dir" ] || continue
@@ -83,6 +105,8 @@ copy_artwork() {
 main() {
     echo "1" >/tmp/stay_awake
     trap "cleanup" EXIT INT TERM HUP QUIT
+
+    create_busybox_wrappers
 
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor >"$USERDATA_PATH/PORTS-portmaster/cpu_governor.txt"
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq >"$USERDATA_PATH/PORTS-portmaster/cpu_min_freq.txt"
