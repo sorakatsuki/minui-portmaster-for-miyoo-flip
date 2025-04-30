@@ -79,6 +79,11 @@ EOF
 }
 
 copy_artwork() {
+    if [ -f "$USERDATA_PATH/PORTS-portmaster/no-artwork" ]; then
+        echo "Artwork copying skipped."
+        return
+    fi
+
     for dir in "$PORTS_DIR"/*/; do
         [ -d "$dir" ] || continue
         port_json="$dir/port.json"
