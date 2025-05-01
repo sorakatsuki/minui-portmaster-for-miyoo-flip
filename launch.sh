@@ -27,7 +27,7 @@ export XDG_DATA_HOME="$PAK_DIR"
 ROM_PATH="$1"
 ROM_DIR="$(dirname "$ROM_PATH")"
 ROM_NAME="$(basename "$ROM_PATH")"
-TEMP_DATA_DIR="$SDCARD_PATH/PortTemp"
+TEMP_DATA_DIR="$SDCARD_PATH/PortsTemp"
 PORTS_DIR="$ROM_DIR/.ports"
 
 export HM_TOOLS_DIR="$PAK_DIR"
@@ -58,6 +58,7 @@ cleanup() {
 
 create_busybox_wrappers() {
     bin_dir="$PAK_DIR/bin"
+    echo "Creating busybox wrappers in $bin_dir"
     if [ ! -x "$bin_dir/busybox" ]; then
         echo "Error: $bin_dir/busybox not found or not executable"
         return 1
@@ -91,7 +92,7 @@ copy_artwork() {
         cover_png="$dir/cover.png"
         [ -f "$cover_png" ] || continue
 
-        echo "Processing folder: $dir"
+        echo "Processing folder $dir for artwork"
         shell_script=$(jq -r '.items[] | select(test("\\.sh$"))' "$port_json" | head -n1)
         if [ -z "$shell_script" ] || [ "$shell_script" = "null" ]; then
             echo "No shell script found in $port_json"
@@ -107,6 +108,37 @@ copy_artwork() {
     done
 }
 
+unpack_tar() {
+    tar_file="$1"
+    dest_dir="$2"
+    echo "Unpacking $1 to $2"
+    if [ ! -f "$tar_file" ]; then
+        echo "$tar_file not found"
+        return
+    fi
+    if tar -zxf "$tar_file" -C "$dest_dir"; then
+        rm -f "$tar_file"
+    else
+        echo "Failed to unpack $tar_file"
+        return 1
+    fi
+}
+
+unzip_pylibs() {
+    pylibs_file="$1"
+    echo "Unzipping $1"
+    if [ ! -f "$pylibs_file" ]; then
+        echo "$pylibs_file not found"
+        return
+    fi
+    if unzip -oq "$pylibs_file" -d "$(dirname "$pylibs_file")"; then
+        rm -f "$pylibs_file"
+    else
+        echo "Failed to unpack $pylibs_file"
+        return 1
+    fi
+}
+
 main() {
     echo "1" >/tmp/stay_awake
     trap "cleanup" EXIT INT TERM HUP QUIT
@@ -120,8 +152,7 @@ main() {
         echo "$PLATFORM is not a supported platform."
         exit 1
     fi
-
-    create_busybox_wrappers
+    echo "Starting PortMaster with ROM: $ROM_PATH"
 
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor >"$USERDATA_PATH/PORTS-portmaster/cpu_governor.txt"
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq >"$USERDATA_PATH/PORTS-portmaster/cpu_min_freq.txt"
@@ -129,6 +160,10 @@ main() {
     echo ondemand >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     echo 1608000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     echo 1800000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+    unpack_tar "$PAK_DIR/files/bin.tar.gz" "$PAK_DIR/bin"
+    unpack_tar "$PAK_DIR/files/lib.tar.gz" "$PAK_DIR/lib"
+    create_busybox_wrappers
 
     if [ ! -f "$EMU_DIR/config/config.json" ]; then
         mkdir -p "$EMU_DIR/config"
@@ -140,20 +175,17 @@ main() {
     if ! mount | grep -q "on $TEMP_DATA_DIR/ports type"; then
         mount -o bind "$ROM_DIR/.ports" "$TEMP_DATA_DIR/ports"
     else
-        echo "Mount point already exists, skipping mount."
+        echo "Mount point $TEMP_DATA_DIR/ports already exists, skipping mount."
     fi
-
-    cp -f "$PAK_DIR/files/control.txt" "$EMU_DIR/control.txt"
-    python3 "$PAK_DIR/src/replace_string_in_file.py" "$EMU_DIR/control.txt" EMU_DIR "$EMU_DIR"
-    python3 "$PAK_DIR/src/replace_string_in_file.py" "$EMU_DIR/control.txt" TEMP_DATA_DIR "$TEMP_DATA_DIR"
-
-    python3 "$PAK_DIR/src/replace_string_in_file.py" \
-        "$EMU_DIR/pylibs/harbourmaster/platform.py" "/mnt/SDCARD/Roms/PORTS" "$ROM_DIR"
-    python3 "$PAK_DIR/src/disable_python_function.py" \
-        "$EMU_DIR/pylibs/harbourmaster/platform.py" portmaster_install
 
     rm -f "$EMU_DIR/.pugwash-reboot"
     if echo "$ROM_NAME" | grep -qi "portmaster"; then
+        unzip_pylibs "$EMU_DIR/pylibs.zip"
+        python3 "$PAK_DIR/src/replace_string_in_file.py" \
+            "$EMU_DIR/pylibs/harbourmaster/platform.py" "/mnt/SDCARD/Roms/PORTS" "$ROM_DIR"
+        python3 "$PAK_DIR/src/disable_python_function.py" \
+            "$EMU_DIR/pylibs/harbourmaster/platform.py" portmaster_install
+
         while true; do
             pugwash --debug
 
@@ -164,6 +196,9 @@ main() {
             rm -f "$EMU_DIR/.pugwash-reboot"
         done
     else
+        cp -f "$PAK_DIR/files/control.txt" "$EMU_DIR/control.txt"
+        python3 "$PAK_DIR/src/replace_string_in_file.py" "$EMU_DIR/control.txt" EMU_DIR "$EMU_DIR"
+        python3 "$PAK_DIR/src/replace_string_in_file.py" "$EMU_DIR/control.txt" TEMP_DATA_DIR "$TEMP_DATA_DIR"
         "$PAK_DIR/bin/busybox" sh "$ROM_PATH"
     fi
 

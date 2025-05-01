@@ -15,18 +15,8 @@ bump-version:
 	jq '.version = "$(RELEASE_VERSION)"' pak.json > pak.json.tmp
 	mv pak.json.tmp pak.json
 
-build: bin/bin.txt lib/lib.txt PortMaster bin/minui-power-control bin/minui-presenter bin/jq
+build: PortMaster bin/minui-power-control bin/minui-presenter bin/jq
 	@echo "Build complete"
-
-bin/bin.txt:
-	mkdir -p bin
-	unzip -o files/bin.zip -d bin
-	touch bin/bin.txt
-
-lib/lib.txt:
-	mkdir -p lib
-	unzip -o files/lib.zip -d lib
-	touch lib/lib.txt
 
 PortMaster:
 	curl -f -o trimui.portmaster.zip -sSL https://github.com/PortsMaster/PortMaster-GUI/releases/download/$(PORTMASTER_VERSION)/trimui.portmaster.zip
@@ -34,8 +24,6 @@ PortMaster:
 	mv trimui.portmaster/Apps/PortMaster/PortMaster PortMaster
 	rm -rf trimui.portmaster
 	rm -f trimui.portmaster.zip
-	unzip PortMaster/pylibs.zip -d PortMaster
-	rm -f PortMaster/pylibs.zip
 
 bin/minui-power-control:
 	mkdir -p bin
