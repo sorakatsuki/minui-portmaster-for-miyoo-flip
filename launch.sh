@@ -56,6 +56,23 @@ cleanup() {
     fi
 }
 
+show_message() (
+    message="$1"
+    seconds="$2"
+
+    if [ -z "$seconds" ]; then
+        seconds="forever"
+    fi
+
+    killall minui-presenter >/dev/null 2>&1 || true
+    echo "$message" 1>&2
+    if [ "$seconds" = "forever" ]; then
+        minui-presenter --message "$message" --timeout -1 &
+    else
+        minui-presenter --message "$message" --timeout "$seconds"
+    fi
+)
+
 create_busybox_wrappers() {
     bin_dir="$PAK_DIR/bin"
     echo "Creating busybox wrappers in $bin_dir"
@@ -152,7 +169,17 @@ main() {
         echo "$PLATFORM is not a supported platform."
         exit 1
     fi
+
     echo "Starting PortMaster with ROM: $ROM_PATH"
+
+    if [ -f "$PAK_DIR/files/bin.tar.gz" ] || [ -f "$PAK_DIR/files/lib.tar.gz" ]; then
+        show_message "Unpacking files, please wait..." forever
+        unpack_tar "$PAK_DIR/files/bin.tar.gz" "$PAK_DIR/bin"
+        unpack_tar "$PAK_DIR/files/lib.tar.gz" "$PAK_DIR/lib"
+        create_busybox_wrappers
+    fi
+
+    show_message "Starting ${ROM_NAME%.*}" 10 &
 
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor >"$USERDATA_PATH/PORTS-portmaster/cpu_governor.txt"
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq >"$USERDATA_PATH/PORTS-portmaster/cpu_min_freq.txt"
@@ -161,24 +188,23 @@ main() {
     echo 1608000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     echo 1800000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
-    unpack_tar "$PAK_DIR/files/bin.tar.gz" "$PAK_DIR/bin"
-    unpack_tar "$PAK_DIR/files/lib.tar.gz" "$PAK_DIR/lib"
-    create_busybox_wrappers
-
     if [ ! -f "$EMU_DIR/config/config.json" ]; then
+        echo "Copying config.json to $EMU_DIR/config"
         mkdir -p "$EMU_DIR/config"
         cp -f "$PAK_DIR/files/config.json" "$EMU_DIR/config/config.json"
     fi
 
-    mkdir -p "$TEMP_DATA_DIR/ports"
     mkdir -p "$ROM_DIR/.ports"
     if ! mount | grep -q "on $TEMP_DATA_DIR/ports type"; then
+        echo "Mounting $ROM_DIR/.ports to $TEMP_DATA_DIR/ports"
+        mkdir -p "$TEMP_DATA_DIR/ports"
         mount -o bind "$ROM_DIR/.ports" "$TEMP_DATA_DIR/ports"
     else
         echo "Mount point $TEMP_DATA_DIR/ports already exists, skipping mount."
     fi
 
     if echo "$ROM_NAME" | grep -qi "portmaster"; then
+        echo "Starting PortMaster GUI"
         rm -f "$EMU_DIR/.pugwash-reboot"
         unzip_pylibs "$EMU_DIR/pylibs.zip"
         python3 "$PAK_DIR/src/replace_string_in_file.py" \
