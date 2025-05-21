@@ -77,11 +77,12 @@ Deep sleep is supported on compatible devices. Click the power button to enter d
 
 ## Artwork
 
-If cover artwork is available for a port, it will automatically be displayed in NextUI. This feature can be disabled by creating a file named `no-artwork` in the `/.userdata/<PLATFORM>/PORTS-portmaster` folder on your SD card.
+Artwork for ports will automatically be displayed in NextUI. This feature can be disabled by creating a file named `no-artwork` in the `/.userdata/<PLATFORM>/PORTS-portmaster` folder on your SD card. MinUI is currently not supported.
 
 ## Known Issues
 
 - When you launch PortMaster or a port, a `/mnt/SDCARD/PortsTemp/ports` folder is created. It is usually deleted when PortMaster closes, but sometimes it may remain. This does not cause problems, but you can safely delete the folder manually if PortMaster is not running and the `/mnt/SDCARD/PortsTemp/ports` folder is empty.
+- Some loading screens can take a long time, sometimes up to 10 minutes. This is most noticeable the first time you run PortMaster or a port, as files need to be unpacked and patched. Please be patient and allow the process to complete.
 
 ## Troubleshooting
 
