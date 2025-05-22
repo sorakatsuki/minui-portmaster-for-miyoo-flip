@@ -4,7 +4,7 @@ A MinUI and NextUI Emu Pak for PortMaster which includes everything needed and r
 
 ## Description
 
-MinUI PortMaster is an Emu Pak for [MinUI](https://github.com/shauninman/MinUI) and [NextUI](https://github.com/LoveRetro/NextUI), wrapping up [PortMaster](https://portmaster.games/), which organizes and simplifies the installation process for hundreds of PC ports. MinUI PortMaster is a standalone Emu Pak and does not require any additional software to run, for example, [TRIMUI_EX](https://github.com/kloptops/TRIMUI_EX). Everything is included in the `PORTS.pak` file and only a few steps are needed to install.
+MinUI PortMaster is an Emu Pak for [MinUI](https://github.com/shauninman/MinUI) and [NextUI](https://github.com/LoveRetro/NextUI), wrapping up [PortMaster](https://portmaster.games/), which organizes and simplifies the installation process for hundreds of PC ports. MinUI PortMaster is a standalone Emu Pak and does not require any additional software to run, for example, [TRIMUI_EX](https://github.com/kloptops/TRIMUI_EX). Everything is included in the download and only a few steps are needed to install.
 
 > [!IMPORTANT]
 > MinUI PortMaster has been designed to run on TrimUI devices only.
@@ -38,30 +38,30 @@ Note: The `<PLATFORM>` folder name is based on the name of your device. For exam
 
 ## Usage
 
-- From MinUI or NextUI, select the Ports->Portmaster entry to launch the manager.
+- From MinUI/NextUI, go to **Ports** and select the **Portmaster** entry to launch the Portmaster GUI.
 - Browse available ports and install new ones.
 - Installed ports will appear under the Ports entry in MinUI/NextUI.
 
 > [!IMPORTANT]
-> Not all ports are ready to run immediately after installation, and some may require additional steps. This usually involves copying files from a purchased copy of the game. These will need to be copied to the corresponding port folder in `/Roms/Ports (PORTS)/.ports` on the SD card. Please refer to the port's documentation at the [PortMaster](https://portmaster.games/games.html) website for specific instructions.
+> Not all ports are ready to run immediately after installation, and some may require additional steps. This usually involves copying files from a purchased copy of a game. The files will need to be copied to the corresponding port folder in `/Roms/Ports (PORTS)/.ports` on the SD card. Please refer to the port's documentation at the [PortMaster](https://portmaster.games/games.html) website for specific instructions on how to install each port.
 
 ## Updating
 
-### Safe Update Method (Recommended)
+### Safe Update
 
-This method keeps your PortMaster data and settings intact while updating everything else. It is the method used when updating the pak via the [NextUI Pak Store](https://github.com/UncleJunVIP/nextui-pak-store).
+This is the recommended method for updating PortMaster to a new version. It keeps your PortMaster data and settings intact while updating everything else. It is the method used when updating the pak via the [NextUI Pak Store](https://github.com/UncleJunVIP/nextui-pak-store).
 
 1. Mount your MinUI SD card to your computer.
 2. Download the latest `PORTS.pak.zip` from GitHub.
 3. Extract the zip file on your computer. This will create a new `PORTS.pak` folder.
-4. In the new `PORTS.pak` folder delete the foler named `PortMaster`.
+4. In the new `PORTS.pak` folder, delete the folder named `PortMaster`.
 5. On your SD card, open the existing `/Emus/<PLATFORM>/PORTS.pak` folder.
 6. Copy the entire contents of the new `PORTS.pak` folder (the `PortMaster` folder will be missing) to the existing `PORTS.pak` folder on your SD card. **Overwrite any files if prompted.**
 7. Eject your SD card and insert it back into your MinUI device.
 
-### Full Replace Method (Not Recommended)
+### Full Update (Not Recommended)
 
-This method replaces the entire `PORTS.pak` folder on your SD card with a new one. It is easier but it's not recommended as PortMaster settings and data will be lost. This method is only recommended if you are having issues after trying the Safe Update method.
+This method replaces the entire `PORTS.pak` folder on your SD card with a new one. It is quicker, but it's not recommended as PortMaster settings and data will be lost. This method is only recommended if you are having issues after trying the Safe Update method.
 
 1. Mount your MinUI SD card to your computer.
 2. Delete the entire old `PORTS.pak` folder from `/Emus/<PLATFORM>/` on your SD card.
@@ -69,11 +69,11 @@ This method replaces the entire `PORTS.pak` folder on your SD card with a new on
 4. Eject your SD card and insert it back into your MinUI device.
 
 > [!IMPORTANT]
-> This method may remove some dependencies needed by your installed ports. If a port does not work after updating, launch PortMaster, go to **Manage Ports**, select the port that is not working, and choose **Reinstall**. This will restore any missing files for that port.
+> This method may remove some dependencies required by your installed ports. If a port does not work after updating, launch PortMaster, go to **Manage Ports**, select the port that is not working, and choose **Reinstall**. This will restore any missing files for that port.
 
 ## Deep Sleep & Shutdown
 
-Deep sleep is supported on compatible devices. Click the power button to enter deep sleep. Click again to resume the game. To shut down, hold the power button for 2 seconds. **Note:** Shutdown does not save or resume the game and any unsaved progress will be lost. For more information and issues, see [MinUI Power Control](https://github.com/ben16w/minui-power-control).
+Deep sleep is supported on compatible devices. Click the power button to enter deep sleep. Click again to resume the game. To shut down, hold the power button for 2 seconds. **Note:** Shutdown does not save or resume the game, and any unsaved progress will be lost. For more information and issues, see [MinUI Power Control](https://github.com/ben16w/minui-power-control).
 
 ## Artwork
 
@@ -81,8 +81,8 @@ Artwork for ports will automatically be displayed in NextUI. This feature can be
 
 ## Known Issues
 
-- When you launch PortMaster or a port, a `/mnt/SDCARD/PortsTemp/ports` folder is created. It is usually deleted when PortMaster closes, but sometimes it may remain. This does not cause problems, but you can safely delete the folder manually if PortMaster is not running and the `/mnt/SDCARD/PortsTemp/ports` folder is empty.
-- Some loading screens can take a long time, sometimes up to 10 minutes. This is most noticeable the first time you run PortMaster or a port, as files need to be unpacked and patched. Please be patient and allow the process to complete.
+- When you launch PortMaster or a port, a `/mnt/SDCARD/PortsTemp/ports` folder is created. It is usually deleted when PortMaster closes, but sometimes it may remain. You can safely delete the `PortsTemp` folder if PortMaster is not running and the `/mnt/SDCARD/PortsTemp/ports` folder is empty.
+- Some loading screens can take a long time to complete, sometimes up to 10 minutes. This is most noticeable the first time you run PortMaster or a port, as files need to be unpacked and patched. Please be patient and allow the process to complete.
 
 ## Troubleshooting
 
@@ -92,8 +92,8 @@ Artwork for ports will automatically be displayed in NextUI. This feature can be
 ## Thanks
 
 - The [PortMaster](https://portmaster.games/) team for all their hard work.
-- [Shaun Inman](https://github.com/shauninman) for developing [MinUI](https://github.com/shauninman/MinUI).
 - [ro8inmorgan](https://github.com/ro8inmorgan), [frysee](https://github.com/frysee) and the rest of the NextUI contributors for developing [NextUI](https://github.com/LoveRetro/NextUI).
+- [Shaun Inman](https://github.com/shauninman) for developing [MinUI](https://github.com/shauninman/MinUI).
 - Also, thank you, [josegonzalez](https://github.com/josegonzalez), for your pak repositories, which this project is based on.
 
 ## License
