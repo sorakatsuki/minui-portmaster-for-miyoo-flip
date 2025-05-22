@@ -1,4 +1,12 @@
-# MinUI PortMaster
+<div align="center">
+<img src=".github/resources/banner.png" width="auto" alt="MinUI Portmaster wordmark">
+
+![GitHub License](https://img.shields.io/github/license/ben16w/minui-portmaster?style=for-the-badge)
+![GitHub Release](https://img.shields.io/github/v/release/ben16w/minui-portmaster?sort=semver&style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/ben16w/minui-portmaster?style=for-the-badge)
+![GitHub Downloads (specific asset, all releases)](https://img.shields.io/github/downloads/ben16w/minui-portmaster/PORTS.pak.zip?style=for-the-badge&label=Downloads)
+
+</div>
 
 A MinUI and NextUI Emu Pak for PortMaster which includes everything needed and requires no additional software.
 
@@ -26,7 +34,7 @@ PortMaster is designed and tested for the following platforms:
 ## Installation
 
 1. Mount your MinUI SD card to your computer.
-2. Download the latest release from GitHub. It will be named `PORTS.pak.zip`.
+2. Download the latest [release](https://github.com/ben16w/minui-portmaster/releases) from GitHub. It will be named `PORTS.pak.zip`.
 3. Copy the zip file to the correct platform folder in the "/Emus" folder on the SD card. Please ensure the new zip file name is `PORTS.pak.zip`.
 4. Extract the zip in place, then delete the zip file.
 5. Confirm that there is a `/Emus/<PLATFORM>/PORTS.pak/launch.sh` file on your SD card.
@@ -52,7 +60,7 @@ Note: The `<PLATFORM>` folder name is based on the name of your device. For exam
 This is the recommended method for updating PortMaster to a new version. It keeps your PortMaster data and settings intact while updating everything else. It is the method used when updating the pak via the [NextUI Pak Store](https://github.com/UncleJunVIP/nextui-pak-store).
 
 1. Mount your MinUI SD card to your computer.
-2. Download the latest `PORTS.pak.zip` from GitHub.
+2. Download the latest [release](https://github.com/ben16w/minui-portmaster/releases) from GitHub. It will be named `PORTS.pak.zip`.
 3. Extract the zip file on your computer. This will create a new `PORTS.pak` folder.
 4. In the new `PORTS.pak` folder, delete the folder named `PortMaster`.
 5. On your SD card, open the existing `/Emus/<PLATFORM>/PORTS.pak` folder.
@@ -64,9 +72,10 @@ This is the recommended method for updating PortMaster to a new version. It keep
 This method replaces the entire `PORTS.pak` folder on your SD card with a new one. It is quicker, but it's not recommended as PortMaster settings and data will be lost. This method is only recommended if you are having issues after trying the Safe Update method.
 
 1. Mount your MinUI SD card to your computer.
-2. Delete the entire old `PORTS.pak` folder from `/Emus/<PLATFORM>/` on your SD card.
-3. Copy the new `PORTS.pak` folder (from the extracted zip) to `/Emus/<PLATFORM>/` on your SD card.
-4. Eject your SD card and insert it back into your MinUI device.
+2. Download the latest [release](https://github.com/ben16w/minui-portmaster/releases) from GitHub. It will be named `PORTS.pak.zip`.
+3. Delete the entire old `PORTS.pak` folder from `/Emus/<PLATFORM>/` on your SD card.
+4. Copy the new `PORTS.pak` folder (from the extracted zip) to `/Emus/<PLATFORM>/` on your SD card.
+5. Eject your SD card and insert it back into your MinUI device.
 
 > [!IMPORTANT]
 > This method may remove some dependencies required by your installed ports. If a port does not work after updating, launch PortMaster, go to **Manage Ports**, select the port that is not working, and choose **Reinstall**. This will restore any missing files for that port.
