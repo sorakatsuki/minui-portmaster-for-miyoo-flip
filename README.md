@@ -56,7 +56,7 @@ This is the recommended method for updating PortMaster to a new version. It keep
 3. Extract the zip file on your computer. This will create a new `PORTS.pak` folder.
 4. In the new `PORTS.pak` folder, delete the folder named `PortMaster`.
 5. On your SD card, open the existing `/Emus/<PLATFORM>/PORTS.pak` folder.
-6. Copy the entire contents of the new `PORTS.pak` folder (the `PortMaster` folder will be missing) to the existing `PORTS.pak` folder on your SD card. **Overwrite any files if prompted.**
+6. Copy the entire contents of the new `PORTS.pak` folder (the `PortMaster` folder will be missing) to the existing `PORTS.pak` folder on your SD card. **Overwrite any files when prompted.**
 7. Eject your SD card and insert it back into your MinUI device.
 
 ### Full Update (Not Recommended)
@@ -83,6 +83,7 @@ Artwork for ports will automatically be displayed in NextUI. This feature can be
 
 - When you launch PortMaster or a port, a `/mnt/SDCARD/PortsTemp/ports` folder is created. It is usually deleted when PortMaster closes, but sometimes it may remain. You can safely delete the `PortsTemp` folder if PortMaster is not running and the `/mnt/SDCARD/PortsTemp/ports` folder is empty.
 - Some loading screens can take a long time to complete, sometimes up to 10 minutes. This is most noticeable the first time you run PortMaster or a port, as files need to be unpacked and patched. Please be patient and allow the process to complete.
+- To check which ports are currently working or have known issues with this pak, please visit the [Ports Status wiki page](https://github.com/ben16w/minui-portmaster/wiki/Ports-Status).
 
 ## Troubleshooting
 
