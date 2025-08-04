@@ -5,6 +5,7 @@ MINUI_POWER_CONTROL_VERSION := 2.0.1
 PORTMASTER_VERSION := 2025.07.14-1510
 MINUI_PRESENTER_VERSION := 0.9.0
 JQ_VERSION := 1.7.1
+SQUASHFS_VERSION := 4.6.1
 
 clean:
 	find bin -type f ! -name '.gitkeep' -delete
@@ -17,7 +18,7 @@ bump-version:
 	jq '.version = "$(RELEASE_VERSION)"' pak.json > pak.json.tmp
 	mv pak.json.tmp pak.json
 
-build: PortMaster bin/minui-power-control bin/minui-presenter files/minui-presenter bin/jq
+build: PortMaster bin/minui-power-control bin/minui-presenter files/minui-presenter bin/jq bin/mksquashfs bin/unsquashfs
 	@echo "Build complete"
 
 PortMaster:
@@ -47,6 +48,18 @@ bin/jq:
 	curl -f -o bin/jq -sSL "https://github.com/jqlang/jq/releases/download/jq-$(JQ_VERSION)/jq-linux-arm64"
 	chmod +x bin/jq
 	curl -sSL -o bin/jq.LICENSE "https://github.com/jqlang/jq/raw/refs/heads/master/COPYING"
+
+bin/mksquashfs:
+	mkdir -p bin
+	curl -f -o bin/mksquashfs -sSL "https://github.com/VHSgunzo/squashfs-tools-static/releases/download/v$(SQUASHFS_VERSION)/mksquashfs-aarch64"
+	chmod +x bin/mksquashfs
+	curl -sSL -o bin/mksquashfs.LICENSE "https://github.com/VHSgunzo/squashfs-tools-static/raw/refs/heads/main/LICENSE"
+
+bin/unsquashfs:
+	mkdir -p bin
+	curl -f -o bin/unsquashfs -sSL "https://github.com/VHSgunzo/squashfs-tools-static/releases/download/v$(SQUASHFS_VERSION)/unsquashfs-aarch64"
+	chmod +x bin/unsquashfs
+	curl -sSL -o bin/unsquashfs.LICENSE "https://github.com/VHSgunzo/squashfs-tools-static/raw/refs/heads/main/LICENSE"
 
 release: build release-pak release-pakz
 	@echo "Release $(RELEASE_VERSION) complete"
