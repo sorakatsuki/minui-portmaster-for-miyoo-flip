@@ -35,12 +35,12 @@ bin/minui-power-control:
 
 bin/minui-presenter:
 	mkdir -p bin
-	curl -f -o bin/minui-presenter -sSL "https://github.com/josegonzalez/minui-presenter/releases/download/$(MINUI_PRESENTER_VERSION)/minui-presenter-tg5040"
+	curl -f -o bin/minui-presenter -sSL "https://github.com/josegonzalez/minui-presenter/releases/download/$(MINUI_PRESENTER_VERSION)/minui-presenter-my355"
 	chmod +x bin/minui-presenter
 
 files/minui-presenter:
 	mkdir -p files
-	curl -f -o files/minui-presenter -sSL "https://github.com/josegonzalez/minui-presenter/releases/download/$(MINUI_PRESENTER_VERSION)/minui-presenter-tg5040"
+	curl -f -o files/minui-presenter -sSL "https://github.com/josegonzalez/minui-presenter/releases/download/$(MINUI_PRESENTER_VERSION)/minui-presenter-my355"
 	chmod +x files/minui-presenter
 
 bin/jq:
